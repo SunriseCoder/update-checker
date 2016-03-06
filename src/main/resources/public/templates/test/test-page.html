@@ -1,0 +1,93 @@
+<link rel="import" href="/bower_components/polymer/polymer.html" />
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html" />
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html" />
+<link rel="import" href="/bower_components/iron-label/iron-label.html" />
+
+<script src="/scripts/utils.js"></script>
+
+<dom-module id="test-page">
+	<template>
+		<iron-ajax id="controllerTestAjax" url="/rest/test/controller" content-type="application/json"
+				on-response="_controllerTestOk" on-error="_controllerTestError"></iron-ajax>
+		<iron-ajax id="databaseTestAjax" url="/rest/test/database" content-type="application/json"
+				on-response="_databaseTestOk" on-error="_databaseTestError"></iron-ajax>
+
+		<h3>Welcome to the <iron-label>[[i18n('test')]]</iron-label></h3>
+		<table>
+			<tr>
+				<td>[[i18n('tests.controller')]]</td>
+				<td><iron-icon id="controllerTestIcon"></iron-icon></td>
+			</tr>
+			<tr>
+				<td>[[i18n('tests.database')]]</td>
+				<td><iron-icon id="databaseTestIcon"></iron-icon></td>
+			</tr>
+		</table>
+	</template>
+
+	<script>
+    Polymer({
+    	is: "test-page",
+    	
+    	properties: {
+    		icons: {
+    			value: {
+    				success: "/icons/success.png",
+    				error: "/icons/error.png"
+    			}
+    		}
+    	},
+
+    	i18n: function(key) {
+    		return Locales.i18n(key);
+    	},
+    	
+    	ready: function() {
+    		this._controllerTest();
+    		this._databaseTest();
+    	},
+    	
+    	_controllerTest: function() {
+    		this.$.controllerTestAjax.generateRequest();
+    	},
+    	
+    	_controllerTestOk: function(event) {
+    		if (event.returnValue) {
+    			var response = event.detail.response;
+    			if (response.id == 15 && response.name == "Entity") {
+    				this.$.controllerTestIcon.src = this.icons.success;
+    			} else {
+        			_controllerTestError();
+        		}
+    		} else {
+    			_controllerTestError();
+    		}
+    	},
+    	
+		_controllerTestError: function() {
+			this.$.controllerTestIcon.src = this.icons.error;
+    	},
+    	
+    	_databaseTest: function() {
+    		this.$.databaseTestAjax.generateRequest();
+    	},
+    	
+    	_databaseTestOk: function(event) {
+    		if (event.returnValue) {
+    			var response = event.detail.response;
+    			if (response.name == "Value") {
+    				this.$.databaseTestIcon.src = this.icons.success;
+    			} else {
+    				_databaseTestError();
+        		}
+    		} else {
+    			_databaseTestError();
+    		}
+    	},
+    	
+		_databaseTestError: function() {
+			this.$.databaseTestIcon.src = this.icons.error;
+    	}
+    });
+  </script>
+</dom-module>

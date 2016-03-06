@@ -1,0 +1,12 @@
+{
+	"app" : "Application",
+	"test" : "System Test",
+	"database" : "Database Manager",
+	"table-actions" : "Actions",
+	"table-data" : "Data",
+	"delete-row" : "Delete",
+	"clear-table" : "Clear Table",
+
+	"tests.controller" : "Controller Test",
+	"tests.database" : "Database Test"
+}

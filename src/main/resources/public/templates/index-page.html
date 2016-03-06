@@ -1,0 +1,24 @@
+<link rel="import" href="/bower_components/polymer/polymer.html" />
+<link rel="import" href="/bower_components/iron-label/iron-label.html" />
+
+<script src="/scripts/utils.js"></script>
+
+<dom-module id="index-page">
+	<template>
+		<h3>Welcome to the <iron-label>[[i18n('app')]]</iron-label></h3>
+		<ul>
+			<li><a href="/test/">System Test</a></li>
+			<li><a href="/database/">Database Manager</a></li>
+		</ul>
+	</template>
+
+	<script>
+    Polymer({
+    	is: "index-page",
+
+    	i18n: function(key) {
+    		return Locales.i18n(key);
+    	}
+    });
+  </script>
+</dom-module>

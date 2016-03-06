@@ -1,0 +1,8 @@
+.classpath
+.project
+.factorypath
+.settings
+target
+database.mv.db
+.springBeans
+/.apt_generated/

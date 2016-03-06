@@ -1,0 +1,59 @@
+<link rel="import" href="/bower_components/polymer/polymer.html" />
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html" />
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html" />
+<link rel="import" href="/bower_components/iron-label/iron-label.html" />
+
+<script src="/scripts/utils.js"></script>
+
+<dom-module id="database-table-list-page">
+	<template>
+		<iron-ajax id="tableListAjax" url="/rest/database/table-list" content-type="application/json"
+				on-response="_tableListOk" on-error="_tableListError"></iron-ajax>
+
+		<h3>Welcome to the <iron-label>[[i18n('database')]]</iron-label></h3>
+		<table border="1">
+			<tr>
+				<th>TABLE_NAME</th>
+				<th>TABLE_SCHEMA</th>
+				<th>[[i18n('table-actions')]]</th>
+			</tr>
+
+			<template is="dom-repeat" items="[[data]]">
+				<tr>
+					<td>[[item.TABLE_NAME]]</td>
+					<td>[[item.TABLE_SCHEMA]]</td>
+					<td>
+						<a href="/database/table?name=[[item.TABLE_NAME]]">[[i18n('table-data')]]</a>
+					</td>
+				</tr>
+			</template>
+		</table>
+	</template>
+
+	<script>
+    Polymer({
+    	is: "database-table-list-page",
+    	
+    	properties: {
+    		data: Object
+    	},
+
+    	i18n: function(key) {
+    		return Locales.i18n(key);
+    	},
+
+    	ready: function() {
+    		this.$.tableListAjax.generateRequest();
+    	},
+
+    	_tableListOk: function(event) {
+    		var response = event.detail.response;
+    		this.data = response;
+    	},
+
+    	_tableListError: function() {
+			//TODO
+    	}
+    });
+  </script>
+</dom-module>

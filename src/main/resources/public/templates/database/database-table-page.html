@@ -1,0 +1,110 @@
+<link rel="import" href="/bower_components/polymer/polymer.html" />
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html" />
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html" />
+<link rel="import" href="/bower_components/iron-label/iron-label.html" />
+<link rel="import" href="/bower_components/paper-button/paper-button.html" />
+
+<script src="/scripts/utils.js"></script>
+
+<dom-module id="database-table-page">
+	<template>
+		<iron-ajax id="tableDataAjax" content-type="application/json"
+				on-response="_tableDataOk" on-error="_tableDataError"></iron-ajax>
+		<iron-ajax id="deleteRowAjax" url="/rest/database/delete-row" content-type="application/json"
+				on-response="_deleteRowOk" on-error="_deleteRowError"></iron-ajax>
+		<iron-ajax id="clearTableAjax" url="/rest/database/clear-table" content-type="application/json"
+				on-response="_clearTableOk" on-error="_clearTableError"></iron-ajax>
+
+		<h3>Welcome to the <iron-label>[[i18n('database')]]</iron-label></h3>
+		<table border="1">
+			<tr>
+				<template is="dom-repeat" items="[[data.columns]]">
+					<th>[[item]]</th>
+				</template>
+				<th>[[i18n('table-actions')]]</th>
+			</tr>
+
+			<template is="dom-repeat" items="[[data.data]]" as="row">
+				<tr>
+					<template is="dom-repeat" items="[[row]]">
+						<td>[[item]]</td>
+					</template>
+					<td>
+<!-- 						<a onclick="_deleteRow([[row]]);">[[i18n('delete-row')]]</a> -->
+						<paper-button on-click="_deleteRow" data-row="[[row]]">[[i18n('delete-row')]]</paper-button>
+					</td>
+				</tr>
+			</template>
+		</table>
+		<paper-button raised on-click="_clearTable">[[i18n('clear-table')]]</paper-button>
+	</template>
+
+	<script>
+    Polymer({
+    	is: "database-table-page",
+    	
+    	properties: {
+    		data: Object,
+
+    		tableDataAjaxUrl: {
+    			type: String,
+    			value: '/rest/database/table-data/'
+    		},
+    		
+    		tableName: String
+    	},
+
+    	i18n: function(key) {
+    		return Locales.i18n(key);
+    	},
+
+    	ready: function() {
+    		this._tableName = Url.getParam('name');
+    		this._refresh();
+    	},
+
+    	_refresh: function() {
+    		this.$.tableDataAjax.url = this.tableDataAjaxUrl + this._tableName;
+    		this.$.tableDataAjax.generateRequest();
+    	},
+
+    	_tableDataOk: function(event) {
+    		var response = event.detail.response;
+    		this.data = response;
+    	},
+
+    	_tableDataError: function() {
+			//TODO
+    	},
+
+    	_deleteRow: function(event) {
+    		var row = event.srcElement.dataRow;
+    		var id = row[0];
+    		this.$.deleteRowAjax.params['tableName'] = this._tableName;
+    		this.$.deleteRowAjax.params['id'] = id;
+    		this.$.deleteRowAjax.generateRequest();
+    	},
+
+    	_deleteRowOk: function(event) {
+    		this._refresh();
+    	},
+
+    	deleteRowError: function(event) {
+    		//TODO
+    	},
+
+    	_clearTable: function(event) {
+    		this.$.clearTableAjax.params['tableName'] = this._tableName;
+    		this.$.clearTableAjax.generateRequest();
+    	},
+
+    	_clearTableOk: function(event) {
+    		this._refresh();
+    	},
+
+    	_clearTableError: function(event) {
+    		//TODO
+    	}
+    });
+  </script>
+</dom-module>
