@@ -9,20 +9,20 @@ import app.service.TestService;
 
 @RestController
 @RequestMapping("/rest/test/")
-public class TestController {
+public class TestRestController {
 	@Autowired
-	TestService testService;
+	TestService service;
 
 	@RequestMapping("/controller")
 	public TestEntity controller() {
 		TestEntity result = new TestEntity((long) 15, "Entity");
 		return result;
 	}
-	
+
 	@RequestMapping("/database")
 	public TestEntity database() {
 		TestEntity entity = new TestEntity("Value");
-		TestEntity result = testService.save(entity);
+		TestEntity result = service.save(entity);
 		return result;
 	}
 }

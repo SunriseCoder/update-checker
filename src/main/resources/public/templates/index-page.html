@@ -1,6 +1,8 @@
 <link rel="import" href="/bower_components/polymer/polymer.html" />
 <link rel="import" href="/bower_components/iron-label/iron-label.html" />
 
+<link rel="import" href="/templates/components/custom-table.html" />
+
 <script src="/scripts/locale-utils.js"></script>
 
 <dom-module id="index-page">
@@ -10,6 +12,10 @@
 			<li><a href="/test/">System Test</a></li>
 			<li><a href="/database/">Database Manager</a></li>
 		</ul>
+
+		<!-- Users under watch -->
+		<custom-table entity="people" columns="id, name, user_id"
+				data-base-url="/rest/people/"></custom-table>
 	</template>
 
 	<script>

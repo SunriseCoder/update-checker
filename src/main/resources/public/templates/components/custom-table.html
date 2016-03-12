@@ -1,0 +1,65 @@
+<link rel="import" href="/bower_components/polymer/polymer.html" />
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html" />
+
+<script src="/scripts/locale-utils.js"></script>
+<script src="/scripts/table-utils.js"></script>
+
+<dom-module id="custom-table">
+	<template>
+		<iron-ajax id="tableDataAjax" content-type="application/json"
+				on-response="_tableDataOk" on-error="_tableDataError"></iron-ajax>
+
+		<!-- Table -->
+		<table border="1">
+			<!-- Headers -->
+			<template is="dom-repeat" items="[[_parsedColumns]]">
+				<th>[[_columnLabel(item)]]</th>
+			</template>
+
+			<!-- Data -->
+		</table>
+	</template>
+
+	<script>
+    Polymer({
+    	is: "custom-table",
+
+    	properties: {
+    		entity: String,
+    		columns: String,
+    		dataBaseUrl: String,
+    		_parsedColumns: Array
+    	},
+
+    	i18n: function(key) {
+   			return Locales.i18n(key);
+    	},
+
+    	_columnLabel(name) {
+    		return Locales.i18n('columns.' + this.entity + '.' + name);
+    	},
+
+    	ready: function() {
+    		this._parsedColumns = Table.parseColumns(this.columns);
+    		this.refresh();
+    	},
+
+    	refresh: function() {
+    		this._loadData();
+    	},
+
+    	_loadData: function() {
+    		this.$.tableDataAjax.url = this.dataBaseUrl + 'list';
+    		this.$.tableDataAjax.generateRequest();
+    	},
+
+    	_tableDataOk: function(event) {
+    		console.log(1);
+    	},
+
+    	_tableDataError: function(event) {
+    		//TODO
+    	}
+    });
+  </script>
+</dom-module>

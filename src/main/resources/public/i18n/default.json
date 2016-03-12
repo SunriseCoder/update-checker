@@ -8,5 +8,9 @@
 	"clear-table" : "Clear Table",
 
 	"tests.controller" : "Controller Test",
-	"tests.database" : "Database Test"
+	"tests.database" : "Database Test",
+	
+	"columns.people.id" : "ID",
+	"columns.people.name" : "Name",
+	"columns.people.user_id" : "User ID"
 }
