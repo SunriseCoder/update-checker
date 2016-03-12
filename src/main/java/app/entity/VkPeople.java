@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class PeopleEntity {
+public class VkPeople {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -17,11 +17,11 @@ public class PeopleEntity {
 	@Column
 	private String userId;
 
-	public PeopleEntity(String name) {
+	public VkPeople(String name) {
 		this.name = name;
 	}
 
-	public PeopleEntity(Long id, String name) {
+	public VkPeople(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}

@@ -6,18 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.entity.PeopleEntity;
-import app.service.PeopleService;
+import app.entity.VkPeople;
+import app.service.VkPeopleService;
 
 @RestController
-@RequestMapping("/rest/people/")
-public class PeopleRestController {
+@RequestMapping("/rest/vk-people/")
+public class VkPeopleRestController {
 	@Autowired
-	PeopleService service;
+	VkPeopleService service;
 
 	@RequestMapping("/list")
-	public List<PeopleEntity> list() throws Exception {
-		List<PeopleEntity> data = service.getList();
+	public List<VkPeople> list() throws Exception {
+		List<VkPeople> data = service.getList();
 		return data;
 	}
 }

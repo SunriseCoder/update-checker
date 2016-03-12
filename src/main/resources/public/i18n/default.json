@@ -9,8 +9,17 @@
 
 	"tests.controller" : "Controller Test",
 	"tests.database" : "Database Test",
+
+	"table-labels.vk-people" : "VK People",
+	"table-labels.vk-groups" : "VK Groups",
+
+	"columns.actions" : "Actions",
+
+	"columns.vk-people.id" : "ID",
+	"columns.vk-people.name" : "Name",
+	"columns.vk-people.user_id" : "User ID",
 	
-	"columns.people.id" : "ID",
-	"columns.people.name" : "Name",
-	"columns.people.user_id" : "User ID"
+	"columns.vk-groups.id" : "ID",
+	"columns.vk-groups.name" : "Name",
+	"columns.vk-groups.group_id" : "Group ID"
 }

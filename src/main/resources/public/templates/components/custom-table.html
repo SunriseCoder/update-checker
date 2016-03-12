@@ -12,9 +12,12 @@
 		<!-- Table -->
 		<table border="1">
 			<!-- Headers -->
-			<template is="dom-repeat" items="[[_parsedColumns]]">
-				<th>[[_columnLabel(item)]]</th>
-			</template>
+			<tr>
+				<template is="dom-repeat" items="[[_parsedColumns]]">
+					<th>[[_columnLabel(item)]]</th>
+				</template>
+				<th>[[i18n('columns.actions')]]</th>
+			</tr>
 
 			<!-- Data -->
 		</table>

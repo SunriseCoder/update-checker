@@ -13,9 +13,15 @@
 			<li><a href="/database/">Database Manager</a></li>
 		</ul>
 
-		<!-- Users under watch -->
-		<custom-table entity="people" columns="id, name, user_id"
-				data-base-url="/rest/people/"></custom-table>
+		<!-- VK Users under watch -->
+		[[i18n('table-labels.vk-people')]]:
+		<custom-table entity="vk-people" columns="id, name, user_id"
+				data-base-url="/rest/vk-people/"></custom-table>
+				
+		<!-- VK Groups under watch -->
+		[[i18n('table-labels.vk-groups')]]:
+		<custom-table entity="vk-groups" columns="id, name, group_id"
+				data-base-url="/rest/vk-groups/"></custom-table>
 	</template>
 
 	<script>
