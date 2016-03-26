@@ -6,10 +6,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class VkPeople {
+public class VkUser {
 	@Id
 	@GeneratedValue
 	private Long id;
+
+	@Column
+	private String url;
+
+	@Column
+	private Boolean parsed;
 
 	@Column
 	private String name;
@@ -17,11 +23,15 @@ public class VkPeople {
 	@Column
 	private String userId;
 
-	public VkPeople(String name) {
+	public VkUser() {
+		
+	}
+
+	public VkUser(String name) {
 		this.name = name;
 	}
 
-	public VkPeople(Long id, String name) {
+	public VkUser(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
@@ -32,6 +42,22 @@ public class VkPeople {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Boolean getParsed() {
+		return parsed;
+	}
+
+	public void setParsed(Boolean parsed) {
+		this.parsed = parsed;
 	}
 
 	public String getName() {

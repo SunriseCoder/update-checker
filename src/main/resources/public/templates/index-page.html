@@ -1,27 +1,39 @@
 <link rel="import" href="/bower_components/polymer/polymer.html" />
+
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html" />
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html" />
 <link rel="import" href="/bower_components/iron-label/iron-label.html" />
 
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html" />
+
 <link rel="import" href="/templates/components/custom-table.html" />
+<link rel="import" href="/templates/dialogs/add-url-dialog.html" />
 
 <script src="/scripts/locale-utils.js"></script>
 
 <dom-module id="index-page">
 	<template>
+		<iron-ajax id="addVkUserAjax" content-type="application/json" url="/rest/vk-user/add"
+				method="POST" on-response="_addVkUserAjaxOk" on-error="_addVkUserAjaxError"></iron-ajax>
+
 		<h3>Welcome to the <iron-label>[[i18n('app')]]</iron-label></h3>
 		<ul>
 			<li><a href="/test/">System Test</a></li>
 			<li><a href="/database/">Database Manager</a></li>
 		</ul>
 
-		<!-- VK Users under watch -->
-		[[i18n('table-labels.vk-people')]]:
-		<custom-table entity="vk-people" columns="id, name, user_id"
-				data-base-url="/rest/vk-people/"></custom-table>
-				
+		<!-- VK User under watch -->
+		[[i18n('table-labels.vk-user')]]:
+		<paper-icon-button icon="icons:add-circle-outline" on-tap="_addVKUserDialogOpen"></paper-icon-button>
+		<custom-table id="vkUserTable" entity="vk-user" columns="id, name, user_id, url"
+				data-base-url="/rest/vk-user/"></custom-table>
+
 		<!-- VK Groups under watch -->
 		[[i18n('table-labels.vk-groups')]]:
 		<custom-table entity="vk-groups" columns="id, name, group_id"
 				data-base-url="/rest/vk-groups/"></custom-table>
+
+		<add-url-dialog id="addUrlDialog" on-add-vk-user="_addVKUserDialogConfirmed"></add-url-dialog>
 	</template>
 
 	<script>
@@ -30,6 +42,27 @@
 
     	i18n: function(key) {
     		return Locales.i18n(key);
+    	},
+
+    	_addVKUserDialogOpen() {
+    		this.$.addUrlDialog.header = 'dialogs.add-vk-user.header';
+    		this.$.addUrlDialog.body = 'dialogs.add-vk-user.body';
+    		this.$.addUrlDialog.event = 'add-vk-user';
+    		this.$.addUrlDialog.toggle();
+    	},
+
+    	_addVKUserDialogConfirmed(event) {
+    		var value = event.detail.value;
+    		this.$.addVkUserAjax.body = {url: value};
+    		this.$.addVkUserAjax.generateRequest();
+    	},
+
+    	_addVkUserAjaxOk: function() {
+    		this.$.vkUserTable.refresh();
+    	},
+
+    	_addVkUserAjaxError: function() {
+    		//TODO
     	}
     });
   </script>

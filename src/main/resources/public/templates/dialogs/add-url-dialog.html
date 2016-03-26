@@ -1,0 +1,52 @@
+<link rel="import" href="/bower_components/polymer/polymer.html" />
+<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html" />
+<link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html" />
+<link rel="import" href="/bower_components/paper-button/paper-button.html" />
+<link rel="import" href="/bower_components/paper-input/paper-input.html" />
+
+<script src="/scripts/locale-utils.js"></script>
+
+<dom-module id="add-url-dialog">
+	<template>
+		<paper-dialog id="dialog" modal>
+			<h2>[[i18n(header)]]</h2>
+
+			<paper-dialog-scrollable>
+				[[i18n(body)]]
+				<paper-input size="50" value="{{value}}"></paper-input>
+			</paper-dialog-scrollable>
+
+			<div class="buttons">
+				<paper-button dialog-confirm on-tap="_accept">[[i18n('dialogs.add-url-dialog.accept')]]</paper-button>
+				<paper-button dialog-dismiss>[[i18n('dialogs.add-url-dialog.cancel')]]</paper-button>
+			</div>
+		</paper-dialog>
+	</template>
+
+	<script>
+    Polymer({
+    	is: "add-url-dialog",
+
+    	properties: {
+    		header: String,
+    		body: String,
+    		event: String,
+    		value: String
+    	},
+
+    	i18n: function(key) {
+   			return Locales.i18n(key);
+    	},
+
+    	toggle: function() {
+    		this.$.dialog.toggle();
+    	},
+
+    	_accept: function() {
+    		var value = this.value;
+    		this.value = '';
+    		this.fire(this.event, {value: value});
+    	}
+    });
+  </script>
+</dom-module>

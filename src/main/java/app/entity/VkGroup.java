@@ -17,6 +17,10 @@ public class VkGroup {
 	@Column
 	private String groupId;
 
+	public VkGroup() {
+		
+	}
+
 	public VkGroup(String name) {
 		this.name = name;
 	}

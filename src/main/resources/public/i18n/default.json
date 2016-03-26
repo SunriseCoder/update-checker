@@ -10,16 +10,23 @@
 	"tests.controller" : "Controller Test",
 	"tests.database" : "Database Test",
 
-	"table-labels.vk-people" : "VK People",
+	"table-labels.vk-user" : "VK Users",
 	"table-labels.vk-groups" : "VK Groups",
 
 	"columns.actions" : "Actions",
 
-	"columns.vk-people.id" : "ID",
-	"columns.vk-people.name" : "Name",
-	"columns.vk-people.user_id" : "User ID",
+	"columns.vk-user.id" : "ID",
+	"columns.vk-user.name" : "Name",
+	"columns.vk-user.user_id" : "User ID",
+	"columns.vk-user.url" : "URL",
 	
 	"columns.vk-groups.id" : "ID",
 	"columns.vk-groups.name" : "Name",
-	"columns.vk-groups.group_id" : "Group ID"
+	"columns.vk-groups.group_id" : "Group ID",
+
+	"dialogs.add-url-dialog.accept" : "Accept",
+	"dialogs.add-url-dialog.cancel" : "Cancel",
+
+	"dialogs.add-vk-user.header" : "Add VK User",
+	"dialogs.add-vk-user.body" : "Please enter VK User URL"
 }
